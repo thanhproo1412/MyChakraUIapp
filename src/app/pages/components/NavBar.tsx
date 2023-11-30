@@ -110,7 +110,7 @@ const DesktopNav = () => {
         <Stack direction={'row'} spacing={4} justify={'center'} align={'center'}>
             {NAV_ITEMS.map((navItem) => (
                 <Box key={navItem.label}>
-                    <Popover trigger={'hover'} placement={'bottom-start'}>
+                    <Popover trigger={'hover'} placement={'left-start'}>
                         <PopoverTrigger>
                             <Box
                                 as="a"
@@ -140,7 +140,7 @@ const DesktopNav = () => {
                                 minW={'sm'}>
                                 <Stack>
                                     {navItem.children.map((child) => (
-                                        <DesktopSubNav key={child.label} {...child} />
+                                       <DesktopSubNav key={child.label} {...child} />
                                     ))}
                                 </Stack>
                             </PopoverContent>
@@ -153,18 +153,19 @@ const DesktopNav = () => {
     )
 }
 
-const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
+const DesktopSubNav = ({ label, href, subLabel,children }: NavItem) => {
     return (
-        <Box
-            as="a"
-            href={href}
+        <Popover  trigger={'hover'} placement={'right-start'}>
+            <Box 
             role={'group'}
             display={'block'}
             p={2}
             rounded={'md'}
             _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
-            <Stack direction={'row'} align={'center'}>
-                <Box>
+               <PopoverTrigger>
+               <Stack direction={'row'} align={'center'}>
+               <Box  as="a"
+            href={href}>
                     <Text
                         transition={'all .3s ease'}
                         _groupHover={{ color: 'pink.400' }}
@@ -183,8 +184,23 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
                     flex={1}>
                     <Icon color={'pink.400'} w={5} h={5} as={ChevronRightIcon} />
                 </Flex>
-            </Stack>
-        </Box>
+                </Stack> 
+                        </PopoverTrigger>
+                        {children  &&
+                        <PopoverContent
+                                border={0}
+                                boxShadow={'xl'}
+                                p={4}
+                                rounded={'xl'}
+                                minW={'sm'}>
+                            {children.map((child) => (
+                                       <DesktopSubNav key={child.label} {...child} />
+                                    ))}
+                            </PopoverContent>
+}
+            </Box>
+        </Popover>
+     
     )
 }
 
@@ -198,7 +214,7 @@ const MobileNav = () => {
     )
 }
 
-const MobileNavItem = ({ label, children, href }: NavItem) => {
+const MobileNavItem = ({ label, children, href, }: NavItem) => {
     const { isOpen, onToggle } = useDisclosure()
 
     return (
@@ -272,7 +288,6 @@ const NAV_ITEMS: Array<NavItem> = [
             },
             {
                 label: 'Đời Sống',
-                href: '#',
                 children: [
                     {
                         label: 'Thị trường xe điện',
@@ -288,7 +303,7 @@ const NAV_ITEMS: Array<NavItem> = [
                     },
                     {
                         label: 'Ảnh đẹp',
-                        href: '#',
+                        href: 'google.com',
                     },
                 ],
             },
