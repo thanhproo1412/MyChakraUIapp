@@ -106,7 +106,7 @@ export default function WithSubnavigation() {
                         fontSize={'sm'}
                         fontWeight={600}
                         color={'white'}
-                        bg={'pink.400'}
+                        bg={'#1E42DD'}
                         href={'#'}
                         _hover={{
                             bg: 'pink.300',

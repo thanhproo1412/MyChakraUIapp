@@ -52,11 +52,12 @@ export default function HomePage() {
                                 >
                                     Time post
                                 </Link>
-                                <Text
+                                <Flex align={'center'}
                                     color='#65676B'
+                                    padding='0 8px'
                                 >
                                     <FaEarthAsia />
-                                </Text>
+                                </Flex>
                             </Flex>
                         </Box>
                     </Flex>
