@@ -1,5 +1,5 @@
 "use client"
-import { Box, CloseButton, Container, Flex, Image, Text, Link, Button, Tooltip, Divider, Grid, GridItem, Collapse, forwardRef } from "@chakra-ui/react";
+import { Box, CloseButton, Container, Flex, Image, Text, Link, Button, Tooltip, Divider, Grid, GridItem, Collapse, forwardRef, FormControl, Input, Textarea } from "@chakra-ui/react";
 import { FaEarthAsia } from "react-icons/fa6";
 import { BsThreeDots } from "react-icons/bs";
 import { AiFillLike } from "react-icons/ai";
@@ -7,6 +7,8 @@ import { AiOutlineLike } from "react-icons/ai";
 import { FaRegComment } from "react-icons/fa";
 import { FaShareSquare } from "react-icons/fa";
 import React, { useState } from 'react';
+import { FaHeart } from "react-icons/fa";
+import { IoSend } from "react-icons/io5";
 
 
 export const LikePeople = () => {
@@ -38,7 +40,6 @@ export const LikePeople = () => {
 }
 
 export default function HomePage() {
-
 
     const [show, setShow] = useState(false)
 
@@ -172,30 +173,76 @@ export default function HomePage() {
                     <UnderlineLink fontSize='.9375rem' onClick={showMoreComment} mt='1rem' color='#65676B'>
                         {show ? 'Ẩn bớt' : 'Xem thêm'}  bình luận
                     </UnderlineLink>
-                    <Collapse startingHeight={20} in={show}>
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-                        terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
-                        labore wes anderson cred nesciunt sapiente ea proident.
-                    </Collapse>
+
                 </Box>
                 {/* Comment ------------------------------------------------------------------------------------------- */}
-                <Flex align={'center'} padding={'12px 16px 0px 16px'} marginBottom={'12px'}>
-                    <Link h='36px' w='36px' href='#'>
-                        <Image w='100%'
-                            objectFit='cover'
-                            src='https://bit.ly/dan-abramov'
-                            alt='Dan Abramov'
-                            rounded={'22px'}
-                            marginRight={'8px'}
-                        />
+                <Flex padding={'12px 16px 0px 16px'} marginBottom={'12px'}>
+                    <Link h='36px' w='36px' href='#' padding={'0'} marginRight={'8px'}>
+                        <Image maxW='36px' objectFit='contain' src='https://bit.ly/dan-abramov' alt='Dan Abramov' rounded={'22px'} padding={'0'} />
                     </Link>
                     <Box >
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                        <Box position='relative'>
+                            <Box padding={'8px 12px'} borderRadius={'8px'} bg={'#E4E6EB'} >
+                                <UnderlineLink fontSize='.8125rem' fontWeight={'600'}>
+                                    Aline Tran
+                                </UnderlineLink>
+                                <Text fontSize={'.9375r'} fontWeight={'400'}>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                                    Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                                    Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.</Text>
+                            </Box>
+                            <Flex right='2px' bottom='-11px' position='absolute' alignItems={'center'}>
+                                <Box borderTopLeftRadius={'100px'} borderBottomLeftRadius='100px' background={'white'} padding='2px'>
+                                    <Flex color={'white'} h={'18px'} w={'18px'} fontSize='12px' cursor={'pointer'} background={'#0B7BFE'} borderRadius='100px'>
+                                        <Box display='block' margin='auto' >
+                                            <AiFillLike />
+                                        </Box>
+                                    </Flex>
+                                </Box>
+                                <Box background={'white'} padding='2px'>
+                                    <Flex color={'white'} h={'18px'} w={'18px'} fontSize='12px' cursor={'pointer'} background={'#FB4462'} borderRadius='100px'>
+                                        <Box display='block' margin='auto' >
+                                            <FaHeart />
+                                        </Box>
+                                    </Flex>
+                                </Box>
+                                <Box borderTopRightRadius={'100px'} borderBottomRightRadius='100px' background={'white'} padding='2px'>
+                                    <Flex h={'18px'} w={'18px'} fontSize='12px' cursor={'pointer'} >
+                                        <Tooltip label={<LikePeople />} placement='top'>
+                                            <UnderlineLink >42</UnderlineLink>
+                                        </Tooltip>
+                                    </Flex>
+                                </Box>
+                            </Flex>
+                        </Box>
+                        <Flex>
+                            <Flex fontWeight='400' fontSize='.8125rem' color='#65676B' paddingTop='3px 4px 0px 4px'>
+                                <UnderlineLink margin='0px 8px'>6 giờ</UnderlineLink>
+                                <UnderlineLink margin='0px 8px' fontWeight='600'>Thích</UnderlineLink>
+                                <UnderlineLink margin='0px 8px' fontWeight='600'>Phản hồi</UnderlineLink>
+                            </Flex>
+                        </Flex>
+                    </Box>
+
+                </Flex>
+                {/* Input Comment ------------------------------------------------------------------------------------------- */}
+                <Flex padding={'12px 16px 0px 16px'} marginBottom={'12px'}>
+                    <Link h='36px' w='36px' href='#' padding={'0'} marginRight={'8px'}>
+                        <Image maxW='36px' objectFit='contain' src='https://bit.ly/dan-abramov' alt='Dan Abramov' rounded={'22px'} padding={'0'} />
+                    </Link>
+                    <Box padding={'8px 12px'} borderRadius={'8px'} bg={'#E4E6EB'} width={'100%'} >
+                        <UnderlineLink fontSize='.8125rem' fontWeight={'600'}>
+                            Aline Tran
+                        </UnderlineLink>
+                        <Box position='relative'>
+                            <Box as='button' padding='8px' color='pink' position='absolute' bottom='0' right='0' zIndex={'2'}>
+                                <IoSend />
+                            </Box>
+                            <Textarea placeholder='Here is a sample placeholder' />
+                        </Box>
                     </Box>
                 </Flex>
             </Container >
-
             <Box h={'800px'} textAlign={'center'} lineHeight={'800px'} fontSize={'200px'}>Test Div</Box>
         </Box >
     )

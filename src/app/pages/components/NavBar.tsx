@@ -1,33 +1,10 @@
 'use client'
 
 import {
-    Box,
-    Flex,
-    Text,
-    IconButton,
-    Button,
-    Stack,
-    Collapse,
-    Icon,
-    Popover,
-    PopoverTrigger,
-    PopoverContent,
-    useColorModeValue,
-    useBreakpointValue,
-    useDisclosure,
-    Image,
-    Input,
-    InputGroup,
-    InputRightElement,
-    Container
+    Box, Flex, Text, IconButton, Button, Stack, Collapse, Icon, Popover, PopoverTrigger, PopoverContent, useColorModeValue,
+    useBreakpointValue, useDisclosure, Image, Input, InputGroup, InputRightElement,
 } from '@chakra-ui/react'
-import {
-    HamburgerIcon,
-    CloseIcon,
-    ChevronDownIcon,
-    ChevronRightIcon,
-    SearchIcon,
-} from '@chakra-ui/icons'
+import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon, SearchIcon, } from '@chakra-ui/icons'
 import styles from './css/NavBarCss.module.css'
 
 export default function WithSubnavigation() {
@@ -40,7 +17,8 @@ export default function WithSubnavigation() {
             borderBottom={1}
             borderStyle={'solid'}
             borderColor={useColorModeValue('gray.200', 'gray.900')}
-            align='center'>
+            align='center'
+            zIndex='20000'>
             <Flex
                 maxW='container.xl'
                 bg={useColorModeValue('white', 'gray.800')}
