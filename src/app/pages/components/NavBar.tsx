@@ -2,7 +2,7 @@
 
 import {
     Box, Flex, Text, IconButton, Button, Stack, Collapse, Icon, Popover, PopoverTrigger, PopoverContent, useColorModeValue,
-    useBreakpointValue, useDisclosure, Image, Input, InputGroup, InputRightElement,
+    useBreakpointValue, useDisclosure, Image, Input, InputGroup, InputRightElement, Show,
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon, SearchIcon, } from '@chakra-ui/icons'
 import styles from './css/NavBarCss.module.css'
@@ -11,90 +11,44 @@ export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure()
 
     return (
-        <Box pos="fixed" top={'0'}
-            minW={'100%'}
-            bg={useColorModeValue('white', 'gray.800')}
-            borderBottom={1}
-            borderStyle={'solid'}
-            borderColor={useColorModeValue('gray.200', 'gray.900')}
-            align='center'
-            zIndex='20000'>
-            <Flex
-                maxW='container.xl'
-                bg={useColorModeValue('white', 'gray.800')}
-                color={useColorModeValue('gray.600', 'white')}
-                minH={'60px'}
-                py={{ base: 2 }}
-                px={{ base: 4 }}
-                align={'center'}>
-
-                <Flex
-                    flex={{ base: 1, md: 'auto' }}
-                    ml={{ base: -2 }}
-                    display={{ base: 'flex', md: 'none' }}
-                >
-                    <IconButton
-                        onClick={onToggle}
-                        icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
-                        variant={'ghost'}
-                        aria-label={'Toggle Navigation'}
-                    />
+        <Box pos="fixed" top={'0'} minW={'100%'} bg={useColorModeValue('white', 'gray.800')} borderBottom={1} borderStyle={'solid'}
+            borderColor={useColorModeValue('gray.200', 'gray.900')} align='center' zIndex='20000'>
+            <Flex maxW='container.xl' bg={useColorModeValue('white', 'gray.800')} color={useColorModeValue('gray.600', 'white')} minH={'60px'} py={{ base: 2 }}
+                px={{ base: 4 }} align={'center'}>
+                <Flex flex={{ base: 1, md: 'auto' }} ml={{ base: -2 }} display={{ base: 'flex', md: 'none' }}>
+                    <IconButton onClick={onToggle} icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
+                        variant={'ghost'} aria-label={'Toggle Navigation'} />
                 </Flex>
                 <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-                    <Text
-                        textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-                        fontFamily={'heading'}
-                        color={useColorModeValue('gray.800', 'white')}>
-                        <Image
-                            boxSize='50px'
-                            objectFit='cover'
-                            src='https://bit.ly/dan-abramov'
-                            alt='Dan Abramov'
-                        />
-
+                    <Text textAlign={useBreakpointValue({ base: 'center', md: 'left' })} fontFamily={'heading'} color={useColorModeValue('gray.800', 'white')}>
+                        <Show above='sm'>
+                            <Image boxSize='50px' objectFit='cover' src='https://bit.ly/dan-abramov' alt='Dan Abramov' />
+                        </Show>
                     </Text>
-
                     <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
                         <DesktopNav />
                     </Flex>
                 </Flex>
-
-                <Stack
-                    flex={{ base: 1, md: 0 }}
-                    justify={'flex-end'}
-                    direction={'row'}
-                    spacing={6}>
-                    <InputGroup className={styles['my-search']}>
-                        <Input placeholder="Search..." />
-                        <InputRightElement>
-                            <IconButton
-                                icon={<SearchIcon />}
-                                size="sm"
-                                variant="ghost"
-                                aria-label="Search"
-                            />
-                        </InputRightElement>
-                    </InputGroup>
+                <Stack flex={{ base: 1, md: 0 }} justify={'flex-end'} direction={'row'} spacing={6}>
+                    <Show above='lg'>
+                        <InputGroup className={styles['my-search']}>
+                            <Input placeholder="Search..." />
+                            <InputRightElement>
+                                <IconButton icon={<SearchIcon />} size="sm" variant="ghost" aria-label="Search" />
+                            </InputRightElement>
+                        </InputGroup>
+                    </Show>
                     <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'}>
                         Sign In
                     </Button>
-                    <Button
-                        as={'a'}
-                        display={{ base: 'none', md: 'inline-flex' }}
-                        fontSize={'sm'}
-                        fontWeight={600}
-                        color={'white'}
-                        bg={'#1E42DD'}
-                        href={'#'}
+                    <Button as={'a'} display={{ base: 'none', md: 'inline-flex' }} fontSize={'sm'} fontWeight={600} color={'white'} bg={'#1E42DD'} href={'#'}
                         _hover={{
                             bg: 'pink.300',
                         }}>
                         Sign Up
                     </Button>
                 </Stack>
-
             </Flex>
-
             <Collapse in={isOpen} animateOpacity>
                 <MobileNav />
             </Collapse>
@@ -114,13 +68,7 @@ const DesktopNav = () => {
                 <Box key={navItem.label}>
                     <Popover trigger={'hover'} placement={'bottom-start'}>
                         <PopoverTrigger>
-                            <Box className={styles['my-nav-item']}
-                                as="a"
-                                p={2}
-                                href={navItem.href}
-                                fontSize={'sm'}
-                                fontWeight={500}
-                                color={'#1E2132'}
+                            <Box className={styles['my-nav-item']} as="a" p={2} href={navItem.href} fontSize={'sm'} fontWeight={500} color={'#1E2132'}
                                 _hover={{
                                     textDecoration: 'none',
                                     // color: '#9DECF9',
@@ -134,14 +82,8 @@ const DesktopNav = () => {
                             </Box>
                         </PopoverTrigger>
 
-
                         {navItem.children && (
-                            <PopoverContent
-                                border={0}
-                                boxShadow={'xl'}
-                                bg={popoverContentBgColor}
-                                p={4}
-                                rounded={'xl'}
+                            <PopoverContent border={0} boxShadow={'xl'} bg={popoverContentBgColor} p={4} rounded={'xl'}
                                 minW={'sm'}>
                                 <Stack>
                                     {navItem.children.map((child) => (
@@ -149,7 +91,6 @@ const DesktopNav = () => {
                                     ))}
                                 </Stack>
                             </PopoverContent>
-
                         )}
                     </Popover>
                 </Box>
@@ -161,25 +102,12 @@ const DesktopNav = () => {
 const DesktopSubNav = ({ label, href, subLabel, children }: NavItem) => {
     return (
         <Popover trigger={'hover'} placement={'right-start'}>
-            <Box
-                role={'group'}
-                display={'block'}
-                p={2}
-                rounded={'md'}
-                color={'#1E2132'}
-                _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}
-            >
+            <Box role={'group'} display={'block'} p={2} rounded={'md'} color={'#1E2132'}
+                _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
                 <PopoverTrigger>
                     <Stack direction={'row'} align={'center'}>
-                        <Box as="a"
-                            justifyContent={'space-around'}
-                            href={href}>
-                            <Text
-                                transition={'all .3s ease'}
-                                _groupHover={{ color: 'pink.400' }}
-                                fontWeight={500}
-                                color={'#1E2132'}
-                            >
+                        <Box as="a" justifyContent={'space-around'} href={href}>
+                            <Text transition={'all .3s ease'} _groupHover={{ color: 'pink.400' }} fontWeight={500} color={'#1E2132'}>
                                 {label}
                             </Text>
                             <Text fontSize={'sm'}>{subLabel}</Text>
@@ -188,26 +116,14 @@ const DesktopSubNav = ({ label, href, subLabel, children }: NavItem) => {
                             <Icon
                                 _groupHover={{ color: 'pink.400' }} color={'#1E2132'} w={5} h={5} as={ChevronRightIcon} />
                         }
-                        <Flex
-                            transition={'all .3s ease'}
-                            transform={'translateX(-10px)'}
-                            opacity={0}
+                        <Flex transition={'all .3s ease'} transform={'translateX(-10px)'} opacity={0} justify={'flex-end'} align={'center'} flex={1}
                             _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
-                            justify={'flex-end'}
-                            align={'center'}
-                            flex={1}>
-
+                        >
                         </Flex>
                     </Stack>
                 </PopoverTrigger>
                 {children &&
-                    <PopoverContent
-                        color={'#1E2132'}
-                        border={0}
-                        boxShadow={'xl'}
-                        p={4}
-                        rounded={'xl'}
-                        minW={'sm'}>
+                    <PopoverContent color={'#1E2132'} border={0} boxShadow={'xl'} p={4} rounded={'xl'} minW={'sm'}>
                         {children.map((child) => (
                             <DesktopSubNav key={child.label} {...child} />
                         ))}
@@ -222,6 +138,7 @@ const DesktopSubNav = ({ label, href, subLabel, children }: NavItem) => {
 const MobileNav = () => {
     return (
         <Stack bg={useColorModeValue('white', 'gray.800')} p={4} display={{ md: 'none' }}>
+            <Image boxSize='50px' objectFit='cover' src='https://bit.ly/dan-abramov' alt='Dan Abramov' />
             {NAV_ITEMS.map((navItem) => (
                 <MobileNavItem key={navItem.label} {...navItem} />
             ))}
@@ -229,47 +146,33 @@ const MobileNav = () => {
     )
 }
 
-const MobileNavItem = ({ label, children, href, }: NavItem) => {
+const MobileNavItem = ({ label, children, href }: NavItem) => {
     const { isOpen, onToggle } = useDisclosure()
 
     return (
         <Stack spacing={4} onClick={children && onToggle}>
-            <Box
-                py={2}
-                as="a"
-                href={href ?? '#'}
-                justifyContent="space-between"
-                alignItems="center"
+            <Box py={2} as="a" href={href ?? '#'} alignItems="center"
                 _hover={{
                     textDecoration: 'none',
                 }}>
-                <Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
-                    {label}
-                </Text>
-                {children && (
-                    <Icon
-                        as={ChevronDownIcon}
-                        transition={'all .25s ease-in-out'}
-                        transform={isOpen ? 'rotate(180deg)' : ''}
-                        w={6}
-                        h={6}
-                    />
-                )}
+                <Flex>
+                    <Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
+                        {label}
+                    </Text>
+                    {children && (
+                        <Icon as={ChevronDownIcon} transition={'all .25s ease-in-out'} transform={isOpen ? 'rotate(180deg)' : ''} w={6} h={6} />
+                    )}
+                </Flex>
             </Box>
 
             <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
-                <Stack
-                    mt={2}
-                    pl={4}
-                    borderLeft={1}
-                    borderStyle={'solid'}
-                    borderColor={useColorModeValue('gray.200', 'gray.700')}
-                    align={'start'}>
+                <Stack mt={2} pl={4} borderLeft={1} borderStyle={'solid'} borderColor={useColorModeValue('gray.200', 'gray.700')} align={'start'}>
                     {children &&
                         children.map((child) => (
-                            <Box as="a" key={child.label} py={2} href={child.href}>
-                                {child.label}
-                            </Box>
+
+                            <MobileNavItem key={child.label} {...child} >
+                            </MobileNavItem>
+
                         ))}
                 </Stack>
             </Collapse>
@@ -292,7 +195,7 @@ const NAV_ITEMS: Array<NavItem> = [
     },
     {
         label: 'Tin tức',
-        href: '/pages/tintuc',
+        // href: '/pages/tintuc',
         children: [
             {
                 label: 'Tin Vinfast',
@@ -305,7 +208,7 @@ const NAV_ITEMS: Array<NavItem> = [
             },
             {
                 label: 'Đời Sống',
-                href: '/doisong',
+                // href: '/doisong',
                 children: [
                     {
                         label: 'Thị trường xe điện',
@@ -321,13 +224,13 @@ const NAV_ITEMS: Array<NavItem> = [
                     },
                     {
                         label: 'Ảnh đẹp',
-                        href: '/doisong/anhdep',
+                        // href: '/doisong/anhdep',
                         children: [
                             {
                                 label: 'Ảnh đẹp',
                                 href: '/doisong/anhdep',
                             }
-                        ]
+                        ],
                     },
                 ],
             },
@@ -335,7 +238,7 @@ const NAV_ITEMS: Array<NavItem> = [
     },
     {
         label: 'Diễn đàn',
-        href: '/pages/diendan',
+        // href: '/pages/diendan',
         children: [
             {
                 label: 'Chăm xe – Chơi xe',
