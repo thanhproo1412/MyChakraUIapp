@@ -1,5 +1,5 @@
 "use client"
-import { Box, CloseButton, Container, Flex, Image, Text, Link, Button, Tooltip, Divider, Grid, GridItem, Collapse, forwardRef, FormControl, Input, Textarea } from "@chakra-ui/react";
+import { Box, CloseButton, Container, Flex, Image, Text, Link, Button, Tooltip, Divider, Grid, GridItem, forwardRef, Textarea, ModalContent, ModalBody, ModalCloseButton, Modal, ModalOverlay, ModalHeader, ModalFooter, useDisclosure } from "@chakra-ui/react";
 import { FaEarthAsia } from "react-icons/fa6";
 import { BsThreeDots } from "react-icons/bs";
 import { AiFillLike } from "react-icons/ai";
@@ -51,6 +51,9 @@ export function PostDetail({ groupName, icon, name, timePost, content, img, like
     groupName: any; icon: any; name: any; timePost: any; content: any; img: any; likePeople: any; comment: any; commentPerson: any;
 }) {
 
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
     const [show, setShow] = useState(false)
     const showMoreComment = () => setShow(!show)
     return (
@@ -96,8 +99,27 @@ export function PostDetail({ groupName, icon, name, timePost, content, img, like
                     <Text>{content}</Text>
                 </Box>
                 {/* This is the image of the post ------------------------------------------------------------------------------ */}
-                <Image boxSize='100%' maxH={'568px'} inset='calc(0% + 0px) calc(0% + 0px) calc(33.3333% + 1.01px)' objectFit='cover' src={img} alt='Image of the post'
+                <Image cursor={'pointer'} onClick={onOpen} boxSize='100%' maxH={'568px'} inset='calc(0% + 0px) calc(0% + 0px) calc(33.3333% + 1.01px)' objectFit='cover' src={img} alt='Image of the post'
                 />
+
+                <Modal
+                    isCentered
+                    onClose={onClose}
+                    isOpen={isOpen}
+                    motionPreset='slideInBottom'
+                >
+                    <ModalOverlay />
+                    <ModalContent h='80%'>
+                        <ModalHeader>Modal Title</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                            <Image boxSize='100%' w='100%' inset='calc(0% + 0px) calc(0% + 0px) calc(33.3333% + 1.01px)' src={img} alt='Image of the post' />
+                        </ModalBody>
+                        <ModalFooter>
+                        </ModalFooter>
+                    </ModalContent>
+                </Modal>
+
                 {/* Like, comment status --------------------------------------------------------------------------------------- */}
                 <Flex align={'center'} alignContent={'space-between'} justifyContent={'space-between'} margin={'0px 16px'} padding={'10px 0'}>
                     <Tooltip label={<LikePeople likePeople={likePeople} />} placement='top'>
@@ -296,7 +318,7 @@ const PostData: PostData[] = [
         groupName: 'Testing VN Jobs',
         icon: 'https://bit.ly/dan-abramov',
         name: 'Hai Thanh',
-        timePost: 'Thứ Năm, 7 tháng 12 năm 2023 lúc 11:53',
+        timePost: '11:53 AM - 7 tháng 12',
         content: 'Thanh long trong mì cũng hay nhưng :',
         img: 'https://scontent.fsgn19-1.fna.fbcdn.net/v/t39.30808-6/407361798_865260405601037_2574886706284498157_n.jpg?_nc_cat=1&ccb=1-7&_nc_sid=3635dc&_nc_ohc=8DrxGyD1kxsAX_T4DqE&_nc_ht=scontent.fsgn19-1.fna&oh=00_AfB9CgTKUTPuVXrJgraeivrrd8IQ35Y4zfcKbvNHOtMs1w&oe=6572DB90',
         likePeople: [
@@ -326,7 +348,7 @@ const PostData: PostData[] = [
         groupName: 'Testing VN Jobs',
         icon: 'https://bit.ly/dan-abramov',
         name: 'Hai Thanh',
-        timePost: 'Thứ Năm, 7 tháng 12 năm 2023 lúc 11:53',
+        timePost: '7 tháng 12 lúc 11:53',
         content: 'Thanh long trong mì cũng hay nhưng :',
         img: 'https://contentstatic.techgig.com/photo/99194098.cms',
         likePeople: [
@@ -356,7 +378,7 @@ const PostData: PostData[] = [
         groupName: 'Testing VN Jobs',
         icon: 'https://bit.ly/dan-abramov',
         name: 'Hai Thanh',
-        timePost: 'Thứ Năm, 7 tháng 12 năm 2023 lúc 11:53',
+        timePost: '11:53 AM - 7 tháng 12',
         content: 'Thanh long trong mì cũng hay nhưng :',
         img: 'https://programmerhumor.io/wp-content/uploads/2023/07/programmerhumor-io-linux-memes-backend-memes-7c7c79c55745450-758x959.png',
         likePeople: [
