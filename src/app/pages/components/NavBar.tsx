@@ -138,17 +138,19 @@ const MobileNav = () => {
         <Stack bg={useColorModeValue('white', 'gray.800')} p={4} display={{ md: 'none' }}>
             <Image boxSize='50px' objectFit='cover' src='https://bit.ly/dan-abramov' alt='Dan Abramov' />
             {NAV_ITEMS.map((navItem) => (
-                <MobileNavItem key={navItem.label} {...navItem} />
+                <MobileNavItem key={navItem.label} {...navItem} level={1} />
             ))}
         </Stack>
     )
 }
 
-const MobileNavItem = ({ label, children, href }: NavItem) => {
-    const { isOpen, onToggle } = useDisclosure()
+const MobileNavItem = ({ label, children, href, level }: NavItem & { level: Number }) => {
+
+    const handleLevel = useDisclosure()
+    const handleNextLevel = useDisclosure()
 
     return (
-        <Stack spacing={4} onClick={children && onToggle}>
+        <Stack spacing={4} onClick={children && handleLevel.onToggle}>
             <Box py={2} as="a" href={href ?? '#'} alignItems="center"
                 _hover={{
                     textDecoration: 'none',
@@ -158,17 +160,17 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
                         {label}
                     </Text>
                     {children && (
-                        <Icon as={ChevronDownIcon} transition={'all .25s ease-in-out'} transform={isOpen ? 'rotate(180deg)' : ''} w={6} h={6} />
+                        <Icon as={ChevronDownIcon} transition={'all .25s ease-in-out'} transform={handleLevel.isOpen ? 'rotate(180deg)' : ''} w={6} h={6} />
                     )}
                 </Flex>
             </Box>
 
-            <Collapse in={isOpen} animateOpacity style={{ marginTop: '0!important' }}>
+            <Collapse in={handleLevel.isOpen} animateOpacity style={{ marginTop: '0!important' }}>
                 <Stack mt={2} pl={4} borderLeft={1} borderStyle={'solid'} borderColor={useColorModeValue('gray.200', 'gray.700')} align={'start'}>
                     {children &&
                         children.map((child) => (
 
-                            <MobileNavItem key={child.label} {...child} >
+                            <MobileNavItem key={child.label} {...child} level={level}>
                             </MobileNavItem>
 
                         ))}
