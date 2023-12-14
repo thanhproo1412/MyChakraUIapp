@@ -102,12 +102,7 @@ export function PostDetail({ groupName, icon, name, timePost, content, img, like
                 <Image cursor={'pointer'} onClick={onOpen} boxSize='100%' maxH={'568px'} inset='calc(0% + 0px) calc(0% + 0px) calc(33.3333% + 1.01px)' objectFit='cover' src={img} alt='Image of the post'
                 />
 
-                <Modal
-                    isCentered
-                    onClose={onClose}
-                    isOpen={isOpen}
-                    motionPreset='slideInBottom'
-                >
+                <Modal isCentered onClose={onClose} isOpen={isOpen} motionPreset='slideInBottom'>
                     <ModalOverlay />
                     <ModalContent h='80%'>
                         <ModalHeader>Modal Title</ModalHeader>
@@ -115,8 +110,6 @@ export function PostDetail({ groupName, icon, name, timePost, content, img, like
                         <ModalBody>
                             <Image boxSize='100%' w='100%' inset='calc(0% + 0px) calc(0% + 0px) calc(33.3333% + 1.01px)' src={img} alt='Image of the post' />
                         </ModalBody>
-                        <ModalFooter>
-                        </ModalFooter>
                     </ModalContent>
                 </Modal>
 

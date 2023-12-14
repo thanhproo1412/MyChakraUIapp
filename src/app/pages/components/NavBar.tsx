@@ -147,15 +147,14 @@ const MobileNav = () => {
 const MobileNavItem = ({ label, children, href, level }: NavItem & { level: Number }) => {
 
     const handleLevel = useDisclosure()
-    const handleNextLevel = useDisclosure()
 
     return (
-        <Stack spacing={4} onClick={children && handleLevel.onToggle}>
+        <Stack spacing={4}>
             <Box py={2} as="a" href={href ?? '#'} alignItems="center"
                 _hover={{
                     textDecoration: 'none',
                 }}>
-                <Flex>
+                <Flex onClick={children && handleLevel.onToggle}>
                     <Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
                         {label}
                     </Text>
@@ -200,7 +199,7 @@ const NAV_ITEMS: Array<NavItem> = [
             {
                 label: 'Tin Vinfast',
                 subLabel: 'test subLabel',
-                href: '#',
+                href: '/pages/tintuc',
             },
             {
                 label: 'Tin Cộng Đồng',
