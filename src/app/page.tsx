@@ -71,9 +71,9 @@ export default function Home() {
                 _hover={{ bg: 'red.500' }}>
 
                 < Link href="pages/homepage" className='p-0 m-0' >
-                  <Box fontSize={'xl'} isLoading={isLoading} onClick={handleClick}>
+                  <Button  fontSize={'xl'} isLoading={isLoading} onClick={handleClick}>
                     Go to Home page
-                  </Box>
+                  </Button>
                 </Link>
 
               </Button>

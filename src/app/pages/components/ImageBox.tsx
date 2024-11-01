@@ -17,10 +17,18 @@ export const ImageBoxs = ({ imgList }: ImageBoxsProps) => {
   return (
     <Box >
       <Box paddingTop='16px'>
-        <Container maxW='container.sm' minH={'600px'} background={'white'} padding={'0'} border={'solid 0px yellow'} borderRadius='8px' paddingBottom='12px' boxShadow="lg">
+        <Container
+          maxW='container.sm'
+          minH={'600px'}
+          background={'white'}
+          padding={'0'}
+          border={'solid 0px yellow'}
+          borderRadius='8px'
+          paddingBottom='12px'
+          boxShadow="lg">
           <Wrap spacing='16px' justify='center'>
             {imgList.map((image, index) => (
-              <BoxImage key={index} img={image.img} />
+              <BoxImage key={index} img={image.img ? String(image.img) : 'path/to/placeholder-image.jpg'} />
             ))}
 
           </Wrap>
@@ -40,15 +48,29 @@ export const BoxImage = ({ img }: BoxImageProps) => {
   return (
     <WrapItem w='40%' h='50%' >
       <Center>
-        <Image cursor={'pointer'} onClick={onOpen} boxSize='100%' src={img} alt='Image of the post'
+        <Image
+          cursor={'pointer'}
+          onClick={onOpen}
+          boxSize='100%'
+          src={img}
+          alt='Image of the post'
         />
-        <Modal isCentered onClose={onClose} isOpen={isOpen} motionPreset='slideInBottom'>
+        <Modal
+          isCentered
+          onClose={onClose}
+          isOpen={isOpen}
+          motionPreset='slideInBottom'>
           <ModalOverlay />
           <ModalContent h='80%'>
             <ModalHeader>Modal Title</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <Image boxSize='100%' w='100%' inset='calc(0% + 0px) calc(0% + 0px) calc(33.3333% + 1.01px)' src={img} alt='Image of the post' />
+              <Image
+                boxSize='100%'
+                w='100%'
+                inset='calc(0% + 0px) calc(0% + 0px) calc(33.3333% + 1.01px)'
+                src={img}
+                alt='Image of the post' />
             </ModalBody>
           </ModalContent>
         </Modal>
