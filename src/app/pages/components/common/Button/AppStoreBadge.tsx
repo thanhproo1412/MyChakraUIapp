@@ -6,6 +6,8 @@ interface AppStoreBadgeProps {
     url?: string; // Optional prop for the App Store link
 }
 
+
+
 const AppStoreBadge: React.FC<AppStoreBadgeProps> = ({ url = "https://apps.apple.com/" }) => {
     return (
         <Button
