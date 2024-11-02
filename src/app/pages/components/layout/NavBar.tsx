@@ -5,7 +5,7 @@ import {
     useBreakpointValue, useDisclosure, Image, Input, InputGroup, InputRightElement, Show,
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon, SearchIcon, } from '@chakra-ui/icons'
-import styles from './css/NavBarCss.module.css'
+import styles from './css/NavBar.module.css'
 
 export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure()
