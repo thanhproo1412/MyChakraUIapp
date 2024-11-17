@@ -34,6 +34,9 @@ import {
 } from 'react-icons/fi'
 import { IconType } from 'react-icons'
 
+
+const DefaultIcon = FiHome; // This will be your default icon if no icon is provided
+
 interface LinkItemProps {
     name: string
     icon: IconType
@@ -42,6 +45,7 @@ interface LinkItemProps {
 interface NavItemProps extends FlexProps {
     icon: IconType
     children: React.ReactNode
+    href: string
 }
 
 interface MobileProps extends FlexProps {
@@ -77,20 +81,22 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
                 </Text>
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
             </Flex>
-            {LinkItems.map((link) => (
-                <NavItem key={link.name} icon={link.icon}>
-                    {link.name}
+            {NAV_ITEMS.map((item) => (
+                <NavItem key={item.label}
+                    icon={item.icon || DefaultIcon}
+                    href={item.href || "#"}>
+                    {item.label}
                 </NavItem>
             ))}
         </Box>
     )
 }
 
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon, href = "#", children, ...rest }: NavItemProps) => {
     return (
         <Box
             as="a"
-            href="#"
+            href={href}
             style={{ textDecoration: 'none' }}
             _focus={{ boxShadow: 'none' }}>
             <Flex
@@ -220,48 +226,62 @@ const SidebarWithHeader = ({ children }: { children: React.ReactNode }) => {
 
 export default SidebarWithHeader
 
+interface NavItem {
+    label: string
+    subLabel?: string
+    children?: Array<NavItem>
+    href?: string
+    icon?: IconType
+}
+
 const NAV_ITEMS: Array<NavItem> = [
     {
         label: 'Trang Chủ',
         href: '/pages/homepage',
         subLabel: 'Up-and-coming Designers',
+        icon: FiHome
     },
     {
         label: 'Tin tức',
-        // href: '/pages/tintuc',
         children: [
             {
                 label: 'Tin Vinfast',
                 subLabel: 'test subLabel',
                 href: '/pages/tintuc',
+                icon: FiHome
             },
             {
                 label: 'Tin Cộng Đồng',
                 href: '#',
+                icon: FiTrendingUp
             },
             {
                 label: 'Đời Sống',
-                // href: '/doisong',
+                icon: FiCompass, // Default icon if no specific icon is provided
                 children: [
                     {
                         label: 'Thị trường xe điện',
                         href: '/doisong/thitruongxedien',
+                        icon: FiSettings
                     },
                     {
                         label: 'Công nghệ',
                         href: '/doisong/congnghe',
+                        icon: FiStar
                     },
                     {
                         label: 'Du lịch',
                         href: '/doisong/dulich',
+                        icon: FiStar
                     },
                     {
                         label: 'Ảnh đẹp',
-                        // href: '/doisong/anhdep',
+                        icon: FiStar,
                         children: [
                             {
                                 label: 'Ảnh đẹp',
                                 href: '/doisong/anhdep',
+                                icon: FiStar
                             }
                         ],
                     },
@@ -269,30 +289,4 @@ const NAV_ITEMS: Array<NavItem> = [
             },
         ],
     },
-    {
-        label: 'Diễn đàn',
-        href: '/pages/diendan',
-        children: [
-            {
-                label: 'Post',
-                href: '/pages/diendan/post',
-            },
-            {
-                label: 'Tin tức',
-                href: '#',
-            },
-            {
-                label: 'Cộng đồng 1 tuổi!',
-                href: '#',
-            },
-        ],
-    },
-    {
-        label: 'Sự Kiện',
-        href: '/pages/sukien',
-    },
-    {
-        label: 'Dashboard',
-        href: '/pages/dashboard',
-    },
-]
+];

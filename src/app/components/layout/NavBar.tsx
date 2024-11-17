@@ -122,16 +122,19 @@ const DesktopNav = () => {
                                 className={styles['my-nav-item']}
                                 as="a"
                                 p={2}
-                                href={navItem.href}
+                                href={navItem.href ?? "#"}
                                 fontSize={'sm'}
                                 fontWeight={500}
                                 color={'#1E2132'}
+                                display="flex"
+                                alignItems="center"
+                                justifyContent="space-between"
                                 _hover={{
                                     textDecoration: 'none',
-                                    // color: '#9DECF9',
                                     backgroundColor: '#F2F4F5',
                                     borderRadius: '4px'
-                                }}>
+                                }}
+                            >
                                 {navItem.label}
                                 {navItem.children && (
                                     <Icon color={'#1E2132'} w={5} h={5} as={ChevronRightIcon} />
@@ -158,10 +161,11 @@ const DesktopNav = () => {
                 </Box>
             ))}
         </Stack>
+
     )
 }
 
-const DesktopSubNav = ({ label, href, subLabel, children }: NavItem) => {
+const DesktopSubNav: React.FC<NavItem> = ({ label, href = "#", subLabel, children }) => {
     return (
         <Popover
             trigger={'hover'}
@@ -174,41 +178,37 @@ const DesktopSubNav = ({ label, href, subLabel, children }: NavItem) => {
                 color={'#1E2132'}
                 _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
                 <PopoverTrigger>
-                    <Stack direction={'row'} align={'center'}>
-                        <Box
-                            as="a"
-                            justifyContent={'space-around'}
-                            href={href}>
-                            <Text
-                                transition={'all .3s ease'}
-                                _groupHover={{ color: 'pink.400' }}
-                                fontWeight={500}
-                                color={'#1E2132'}>
-                                {label}
-                            </Text>
-                            <Text fontSize={'sm'}>{subLabel}</Text>
-                        </Box>
-                        {children &&
-                            <Icon
-                                _groupHover={{ color: 'pink.400' }}
-                                color={'#1E2132'}
-                                w={5}
-                                h={5}
-                                as={ChevronRightIcon} />
-                        }
-                        <Flex
-                            transition={'all .3s ease'}
-                            transform={'translateX(-10px)'}
-                            opacity={0}
-                            justify={'flex-end'}
-                            align={'center'}
-                            flex={1}
-                            _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
-                        >
-                        </Flex>
-                    </Stack>
+                    <Box
+                        as="a"
+                        href={href}
+                        display="block"
+                        p={2}
+                        fontWeight={500}
+                        color={'#1E2132'}
+                        _hover={{ color: 'pink.400', textDecoration: 'none' }}>
+                        <Stack direction={'row'} align={'center'} justifyContent={'space-between'}>
+                            <Box>
+                                <Text
+                                    transition={'all .3s ease'}
+                                    _groupHover={{ color: 'pink.400' }}
+                                    fontWeight={500}
+                                    color={'#1E2132'}>
+                                    {label}
+                                </Text>
+                                <Text fontSize={'sm'}>{subLabel}</Text>
+                            </Box>
+                            {children && (
+                                <Icon
+                                    _groupHover={{ color: 'pink.400' }}
+                                    color={'#1E2132'}
+                                    w={5}
+                                    h={5}
+                                    as={ChevronRightIcon} />
+                            )}
+                        </Stack>
+                    </Box>
                 </PopoverTrigger>
-                {children &&
+                {children && (
                     <PopoverContent
                         color={'#1E2132'}
                         border={0}
@@ -220,12 +220,12 @@ const DesktopSubNav = ({ label, href, subLabel, children }: NavItem) => {
                             <DesktopSubNav key={child.label} {...child} />
                         ))}
                     </PopoverContent>
-                }
+                )}
             </Box>
         </Popover>
-
     )
 }
+
 
 const MobileNav = () => {
     return (
@@ -375,6 +375,6 @@ const NAV_ITEMS: Array<NavItem> = [
     },
     {
         label: 'Dashboard',
-        href: '/pages/dashboard',
+        href: '/dashboard',
     },
 ]
