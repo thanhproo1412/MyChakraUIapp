@@ -1,7 +1,7 @@
 "use client"
 
-import NavBar from "./components/layout/NavBar"
-import Fotter from "./components/layout/Footer"
+import NavBar from "../components/layout/NavBar"
+import Fotter from "../components/layout/Footer"
 
 export default function DashboardLayout({
     children, // will be a page or nested layout

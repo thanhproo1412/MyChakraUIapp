@@ -1,5 +1,3 @@
-'use client'
-
 import { ReactNode } from 'react'
 import {
   Box,
@@ -13,8 +11,8 @@ import {
 } from '@chakra-ui/react'
 import { FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa'
 
-import AppStoreBadge from '#/app/pages/components/common/Button/AppStoreBadge'
-import PlayStoreBadge from '#/app/pages/components/common/Button/PlayStoreBadge'
+import AppStoreBadge from '@/app/components/common/Button/AppStoreBadge'
+import PlayStoreBadge from '@/app/components/common/Button/PlayStoreBadge'
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
   return (
@@ -59,7 +57,9 @@ export default function LargeWithAppLinksAndSocial() {
   return (
     <Box
       bg={useColorModeValue('gray.50', 'gray.900')}
-      color={useColorModeValue('gray.700', 'gray.200')}>
+      color={useColorModeValue('gray.700', 'gray.200')}
+      position="relative" // Container to position the footer on top
+    >
       <Container as={Stack} maxW={'6xl'} py={10}>
         <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
           <Stack align={'flex-start'}>
@@ -115,18 +115,27 @@ export default function LargeWithAppLinksAndSocial() {
         </SimpleGrid>
       </Container>
 
+      {/* Footer */}
       <Box
-        borderTopWidth={1}
-        borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.700')}>
+        position="absolute"
+        bottom="0"
+        left="0"
+        width="100%"
+        zIndex={2} // Footer will be above Sidebar
+        bg={useColorModeValue('gray.800', 'gray.900')}
+        color="white"
+        padding="10px"
+        textAlign="center"
+      >
         <Container
           as={Stack}
           maxW={'6xl'}
-          py={4}
+          py={1}
           direction={{ base: 'column', md: 'row' }}
           spacing={4}
           justify={{ md: 'space-between' }}
-          align={{ md: 'center' }}>
+          align={{ md: 'center' }}
+        >
           <Text>© 2022 Chakra Templates. All rights reserved</Text>
           <Stack direction={'row'} spacing={6}>
             <SocialButton label={'Twitter'} href={'#'}>

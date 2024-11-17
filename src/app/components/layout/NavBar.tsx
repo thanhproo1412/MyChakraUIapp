@@ -374,7 +374,7 @@ const NAV_ITEMS: Array<NavItem> = [
         href: '/pages/sukien',
     },
     {
-        label: 'Thư Viện',
-        href: '/pages/thuvien',
+        label: 'Dashboard',
+        href: '/pages/dashboard',
     },
 ]

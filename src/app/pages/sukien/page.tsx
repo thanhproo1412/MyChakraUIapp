@@ -1,6 +1,6 @@
 'use client'
 import { Box } from '@chakra-ui/react'
-import { ImageBox } from '../components/ImageBox'
+import { ImageBox } from '../../components/ImageBox'
 
 export default function TinTuc() {
     return (

@@ -1,6 +1,6 @@
 'use client'
 import { Box } from '@chakra-ui/react'
-import FacebookPost from '../../components/FacebookPost'
+import FacebookPost from '../../../components/FacebookPost'
 
 export default function TinTuc() {
     return (
