@@ -22,13 +22,15 @@ export default function WithSubnavigation() {
             zIndex="20000"
         >
             <Flex
+                minW="100%"
                 maxW='container.xl'
                 bg={useColorModeValue('white', 'gray.800')}
                 color={useColorModeValue('gray.600', 'white')}
                 minH={'60px'}
                 py={{ base: 2 }}
                 px={{ base: 4 }}
-                align={'center'}>
+                align={'center'}
+            >
                 <Flex
                     flex={{ base: 1, md: 'auto' }}
                     ml={{ base: -2 }}
@@ -79,8 +81,8 @@ export default function WithSubnavigation() {
                         as={'a'}
                         fontSize={'sm'}
                         fontWeight={400}
-                        variant={'link'} href={'#'}>
-                        Sign In
+                        variant={'link'} href={'/pages/logIn'}>
+                        Log In
                     </Button>
                     <Button
                         as={'a'}
@@ -89,7 +91,7 @@ export default function WithSubnavigation() {
                         fontWeight={600}
                         color={'white'}
                         bg={'#1E42DD'}
-                        href={'#'}
+                        href={'/pages/signUp'}
                         _hover={{
                             bg: 'pink.300',
                         }}>
@@ -113,7 +115,8 @@ const DesktopNav = () => {
             direction={'row'}
             spacing={4}
             justify={'center'}
-            align={'center'}>
+            align={'center'}
+        >
             {NAV_ITEMS.map((navItem) => (
                 <Box key={navItem.label}>
                     <Popover trigger={'hover'} placement={'bottom-start'}>
