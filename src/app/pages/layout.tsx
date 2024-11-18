@@ -4,7 +4,7 @@ import NavBar from "../components/layout/NavBar"
 import Fotter from "../components/layout/Footer"
 import { Box } from '@chakra-ui/react'
 
-export default function DashboardLayout({
+export default function MainLayout({
     children, // will be a page or nested layout
 }: {
     children: React.ReactNode

@@ -1,11 +1,10 @@
 'use client'
 
 import React, { ReactNode } from 'react'
-import SimpleSidebar from '../components/dashboard/Sidebar/Sidebar'
+import {Box} from "@chakra-ui/react"
 
-
-export default function HomePage() {
+export default function page() {
     return (
-        <SimpleSidebar />
+        <Box></Box>
     )
 }
