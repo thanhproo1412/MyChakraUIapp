@@ -373,8 +373,8 @@ const NAV_ITEMS: Array<NavItem> = [
         ],
     },
     {
-        label: 'Sự Kiện',
-        href: '/pages/sukien',
+        label: 'Calendar',
+        href: '/pages/calendar',
     },
     {
         label: 'Dashboard',
