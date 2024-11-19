@@ -312,16 +312,16 @@ const NAV_ITEMS: Array<NavItem> = [
         subLabel: 'Up-and-coming Designers',
     },
     {
-        label: 'Tin tức',
-        // href: '/pages/tintuc',
+        label: 'Shop',
+        href: '/pages/shop',
         children: [
             {
-                label: 'Tin Vinfast',
+                label: 'Geshin Impact',
                 subLabel: 'test subLabel',
-                href: '/pages/tintuc',
+                href: '/pages/shop',
             },
             {
-                label: 'Tin Cộng Đồng',
+                label: 'League of Legend',
                 href: '#',
             },
             {
