@@ -10,7 +10,7 @@ export default function DashboardLayout({
 }) {
     return (
         <div>
-            <SidebarWithHeader children={children} />
+            <SidebarWithHeader>{children}</SidebarWithHeader> {/* Correct way to pass children */}
 
             <Footer />
         </div>
