@@ -107,7 +107,7 @@ function Shop() {
                 {data.map((item, index) => (
                     <Box
                         key={index}
-                        bg={useColorModeValue("white", "gray.800")}
+                        // bg={useColorModeValue("white", "gray.800")}
                         borderWidth="1px"
                         rounded="lg"
                         shadow="lg"
@@ -195,7 +195,7 @@ function Shop() {
                                 />
                                 <Box
                                     fontSize="lg"
-                                    color={useColorModeValue("gray.800", "white")}
+                                    // color={useColorModeValue("gray.800", "white")}
                                 >
                                     <Box as="span" color="gray.600" fontSize="sm">
                                         £
