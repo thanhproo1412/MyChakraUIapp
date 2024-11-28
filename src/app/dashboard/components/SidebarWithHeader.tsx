@@ -254,6 +254,12 @@ const NAV_ITEMS: Array<NavItem> = [
         icon: FiHome
     },
     {
+        label: 'chart',
+        href: '/dashboard/chart',
+        subLabel: 'chart',
+        icon: FiHome
+    },
+    {
         label: 'AdminPage',
         href: '/dashboard/adminpage',
         children: [
