@@ -76,7 +76,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
             h="full"
             {...rest}>
             <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-                <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+                <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold" as="a" href='/pages/homepage' >
                     Logo
                 </Text>
                 <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
@@ -237,12 +237,25 @@ interface NavItem {
 const NAV_ITEMS: Array<NavItem> = [
     {
         label: 'Trang Chủ',
-        href: '/pages/homepage',
+        href: '/dashboard',
         subLabel: 'Up-and-coming Designers',
         icon: FiHome
     },
     {
-        label: 'Tin tức',
+        label: 'Pricing',
+        href: '/dashboard/pricing',
+        subLabel: 'pricing',
+        icon: FiHome
+    },
+    {
+        label: 'Profile',
+        href: '/dashboard/profile',
+        subLabel: 'profile',
+        icon: FiHome
+    },
+    {
+        label: 'AdminPage',
+        href: '/dashboard/adminpage',
         children: [
             {
                 label: 'Tin Vinfast',
