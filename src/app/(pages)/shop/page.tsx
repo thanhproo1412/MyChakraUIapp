@@ -25,7 +25,7 @@ const data = [
         price: 4.5,
         rating: 4.2,
         numReviews: 34,
-        urlProduct: '/pages/shop/productDetail'
+        urlProduct: '/shop/productDetail'
     },
     {
         isNew: true,
@@ -35,7 +35,7 @@ const data = [
         price: 4.5,
         rating: 4.2,
         numReviews: 34,
-        urlProduct: '/pages/shop/productDetail'
+        urlProduct: '/shop/productDetail'
     },
     {
         isNew: true,
@@ -45,7 +45,7 @@ const data = [
         price: 4.5,
         rating: 4.2,
         numReviews: 34,
-        urlProduct: '/pages/shop/productDetail'
+        urlProduct: '/shop/productDetail'
     }, {
         isNew: true,
         imageURL:
@@ -54,7 +54,7 @@ const data = [
         price: 4.5,
         rating: 4.2,
         numReviews: 34,
-        urlProduct: '/pages/shop/productDetail'
+        urlProduct: '/shop/productDetail'
     },
 ]
 

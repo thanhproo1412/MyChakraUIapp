@@ -308,17 +308,17 @@ interface NavItem {
 const NAV_ITEMS: Array<NavItem> = [
     {
         label: 'Trang Chủ',
-        href: '/pages/homepage',
+        href: '/homepage',
         subLabel: 'Up-and-coming Designers',
     },
     {
         label: 'Shop',
-        href: '/pages/shop',
+        href: '/shop',
         children: [
             {
                 label: 'Geshin Impact',
                 subLabel: 'test subLabel',
-                href: '/pages/shop',
+                href: '/shop',
             },
             {
                 label: 'League of Legend',
@@ -356,11 +356,11 @@ const NAV_ITEMS: Array<NavItem> = [
     },
     {
         label: 'Diễn đàn',
-        href: '/pages/diendan',
+        href: '/diendan',
         children: [
             {
                 label: 'Post',
-                href: '/pages/diendan/post',
+                href: '/diendan/post',
             },
             {
                 label: 'Tin tức',
@@ -374,7 +374,7 @@ const NAV_ITEMS: Array<NavItem> = [
     },
     {
         label: 'Calendar',
-        href: '/pages/calendar',
+        href: '/calendar',
     },
     {
         label: 'Dashboard',
