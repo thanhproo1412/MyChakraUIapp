@@ -2,65 +2,34 @@
 
 import {
     Flex,
-    Circle,
     Box,
     Image,
     Badge,
-    useColorModeValue,
-    Icon,
-    chakra,
     Tooltip,
     Container,
-    Grid
-} from '@chakra-ui/react'
-import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs'
-import { FiShoppingCart } from 'react-icons/fi'
+    Grid,
+    Spinner,
+    Text,
+    Icon,
+    chakra
+} from '@chakra-ui/react';
+import { BsStar, BsStarFill, BsStarHalf } from 'react-icons/bs';
+import { FiShoppingCart } from 'react-icons/fi';
+import { useEffect, useState } from 'react';
 
-const data = [
-    {
-        isNew: true,
-        imageURL:
-            'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=4600&q=80',
-        name: 'Wayfarer Classic',
-        price: 4.5,
-        rating: 4.2,
-        numReviews: 34,
-        urlProduct: '/shop/productDetail'
-    },
-    {
-        isNew: true,
-        imageURL:
-            'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=4600&q=80',
-        name: 'Wayfarer Classic',
-        price: 4.5,
-        rating: 4.2,
-        numReviews: 34,
-        urlProduct: '/shop/productDetail'
-    },
-    {
-        isNew: true,
-        imageURL:
-            'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=4600&q=80',
-        name: 'Wayfarer Classic',
-        price: 4.5,
-        rating: 4.2,
-        numReviews: 34,
-        urlProduct: '/shop/productDetail'
-    }, {
-        isNew: true,
-        imageURL:
-            'https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=4600&q=80',
-        name: 'Wayfarer Classic',
-        price: 4.5,
-        rating: 4.2,
-        numReviews: 34,
-        urlProduct: '/shop/productDetail'
-    },
-]
+interface Product {
+    isNew: boolean;
+    imageURL: string;
+    name: string;
+    price: number;
+    rating: number;
+    numReviews: number;
+    urlProduct: string;
+}
 
 interface RatingProps {
-    rating: number
-    numReviews: number
+    rating: number;
+    numReviews: number;
 }
 
 function Rating({ rating, numReviews }: RatingProps) {
@@ -69,7 +38,7 @@ function Rating({ rating, numReviews }: RatingProps) {
             {Array(5)
                 .fill('')
                 .map((_, i) => {
-                    const roundedRating = Math.round(rating * 2) / 2
+                    const roundedRating = Math.round(rating * 2) / 2;
                     if (roundedRating - i >= 1) {
                         return (
                             <BsStarFill
@@ -77,37 +46,95 @@ function Rating({ rating, numReviews }: RatingProps) {
                                 style={{ marginLeft: '1' }}
                                 color={i < rating ? 'teal.500' : 'gray.300'}
                             />
-                        )
+                        );
                     }
                     if (roundedRating - i === 0.5) {
-                        return <BsStarHalf key={i} style={{ marginLeft: '1' }} />
+                        return <BsStarHalf key={i} style={{ marginLeft: '1' }} />;
                     }
-                    return <BsStar key={i} style={{ marginLeft: '1' }} />
+                    return <BsStar key={i} style={{ marginLeft: '1' }} />;
                 })}
             <Box as="span" ml="2" color="gray.600" fontSize="sm">
                 {numReviews} review{numReviews > 1 && 's'}
             </Box>
         </Box>
-    )
+    );
 }
 
 function Shop() {
+    const [products, setProducts] = useState<Product[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await fetch('https://673db1960118dbfe860858ae.mockapi.io/api/mychakrauiapp/v1/listProduct');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch products');
+                }
+                const data: any[] = await response.json(); // Assume `data` is an array of any type
+
+                // Validate and transform data
+                const validatedData: Product[] = data.map((product: any) => {
+                    return {
+                        isNew: Boolean(product.isNew), // Ensure isNew is a boolean
+                        imageURL: product.imageURL || '', // Ensure imageURL is a string (default to empty)
+                        name: product.name || 'Unknown Product', // Default name if missing
+                        price: parseFloat(product.price) || 0, // Convert price to a number (default to 0)
+                        rating: parseFloat(product.rating) || 0, // Convert rating to a number (default to 0)
+                        numReviews: parseInt(product.numReviews, 10) || 0, // Convert numReviews to an integer (default to 0)
+                        urlProduct: product.urlProduct || '#', // Ensure urlProduct is a string (default to #)
+                    };
+                });
+
+                setProducts(validatedData);
+            } catch (err) {
+                console.error('Error fetching products:', err);
+                setError(true);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
+
+
+    if (loading) {
+        return (
+            <Container maxW="container.xl" p={4} mt="3em" mb="1em" textAlign="center">
+                <Spinner size="xl" />
+                <Text mt={4}>Loading products...</Text>
+            </Container>
+        );
+    }
+
+    if (error) {
+        return (
+            <Container maxW="container.xl" p={4} mt="3em" mb="1em" textAlign="center">
+                <Text fontSize="lg" color="red.500">
+                    Failed to load products. Please try again later.
+                </Text>
+            </Container>
+        );
+    }
+
     return (
-        <Container maxW="container.xl" p={4} mt='3em' mb='1em'>
+        <Container maxW="container.xl" p={4} mt="3em" mb="1em">
             <Grid
                 templateColumns={{
-                    base: "repeat(1, 1fr)", // 1 column on extra-small screens
-                    sm: "repeat(2, 1fr)",   // 2 columns on small screens
-                    md: "repeat(2, 1fr)",   // 2 columns on medium screens
-                    lg: "repeat(3, 1fr)",   // 3 columns on large screens
-                    xl: "repeat(4, 1fr)",   // 4 columns on extra-large screens
+                    base: 'repeat(1, 1fr)', // 1 column on extra-small screens
+                    sm: 'repeat(2, 1fr)', // 2 columns on small screens
+                    md: 'repeat(2, 1fr)', // 2 columns on medium screens
+                    lg: 'repeat(3, 1fr)', // 3 columns on large screens
+                    xl: 'repeat(4, 1fr)', // 4 columns on extra-large screens
                 }}
                 gap={6}
             >
-                {data.map((item, index) => (
+                {products.map((item, index) => (
                     <Box
                         key={index}
-                        // bg={useColorModeValue("white", "gray.800")}
                         borderWidth="1px"
                         rounded="lg"
                         shadow="lg"
@@ -115,19 +142,10 @@ function Shop() {
                         p={4}
                         transition="all 0.3s ease-in-out" // Smooth transition effect
                         _hover={{
-                            transform: "scale(1.05)",       // Slightly increase size
-                            boxShadow: "xl",               // Add a larger shadow
+                            transform: 'scale(1.05)', // Slightly increase size
+                            boxShadow: 'xl', // Add a larger shadow
                         }}
                     >
-                        {/* {item.isNew && (
-                            <Circle
-                                size="10px"
-                                position="absolute"
-                                top={2}
-                                right={2}
-                                bg="red.200"
-                            />
-                        )} */}
                         <a href={item.urlProduct}>
                             <Image
                                 src={item.imageURL}
@@ -141,21 +159,12 @@ function Shop() {
                         <Box mt={4}>
                             <Box display="flex" alignItems="baseline">
                                 {item.isNew && (
-                                    <Badge
-                                        rounded="full"
-                                        px={2}
-                                        fontSize="0.8em"
-                                        colorScheme="red"
-                                    >
+                                    <Badge rounded="full" px={2} fontSize="0.8em" colorScheme="red">
                                         New
                                     </Badge>
                                 )}
                             </Box>
-                            <Flex
-                                mt={2}
-                                justifyContent="space-between"
-                                alignContent="center"
-                            >
+                            <Flex mt={2} justifyContent="space-between" alignContent="center">
                                 <a href={item.urlProduct}>
                                     <Box
                                         fontSize="lg"
@@ -164,8 +173,8 @@ function Shop() {
                                         lineHeight="tight"
                                         isTruncated
                                         _hover={{
-                                            textDecoration: "underline",
-                                            color: "teal.500",
+                                            textDecoration: 'underline',
+                                            color: 'teal.500',
                                         }}
                                     >
                                         {item.name}
@@ -179,24 +188,13 @@ function Shop() {
                                     fontSize="1.2em"
                                 >
                                     <chakra.a href="#" display="flex">
-                                        <Icon
-                                            as={FiShoppingCart}
-                                            h={6}
-                                            w={6}
-                                            alignSelf="center"
-                                        />
+                                        <Icon as={FiShoppingCart} h={6} w={6} alignSelf="center" />
                                     </chakra.a>
                                 </Tooltip>
                             </Flex>
                             <Flex mt={2} justifyContent="space-between" alignContent="center">
-                                <Rating
-                                    rating={item.rating}
-                                    numReviews={item.numReviews}
-                                />
-                                <Box
-                                    fontSize="lg"
-                                    // color={useColorModeValue("gray.800", "white")}
-                                >
+                                <Rating rating={item.rating} numReviews={item.numReviews} />
+                                <Box fontSize="lg">
                                     <Box as="span" color="gray.600" fontSize="sm">
                                         £
                                     </Box>
@@ -211,8 +209,4 @@ function Shop() {
     );
 }
 
-
-
-
-
-export default Shop
+export default Shop;
